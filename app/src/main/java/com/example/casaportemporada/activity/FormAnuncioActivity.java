@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -41,6 +43,7 @@ public class FormAnuncioActivity extends AppCompatActivity {
     private String caminhoImagem;
     private Bitmap imagem;
     private CheckBox cb_status;
+    private ProgressBar progressBar;
 
     Anuncio anuncio = new Anuncio();
 
@@ -50,11 +53,30 @@ public class FormAnuncioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_form_anuncio);
 
         iniciaComponenets();
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            anuncio = (Anuncio) bundle.getSerializable("anuncio");
+
+            configDados();
+        }
+
         configCliques();
+    }
+
+    private void configDados() {
+        Picasso.get().load(anuncio.getUrl_imagem()).into(img_anuncio);
+        edit_titulo.setText(anuncio.getTitulo());
+        edit_descricao.setText(anuncio.getDescricao());
+        edit_quarto.setText(anuncio.getQuarto());
+        edit_banheiro.setText(anuncio.getBanheiro());
+        edit_garagem.setText(anuncio.getGaragem());
+        cb_status.setChecked(anuncio.isStatus());
     }
 
     private void configCliques() {
         findViewById(R.id.ib_salvar).setOnClickListener(view -> validaDados());
+        findViewById(R.id.ib_voltar).setOnClickListener(view -> finish());
     }
 
     public void verificaPermissãoGaleria(View view) {
@@ -112,6 +134,9 @@ public class FormAnuncioActivity extends AppCompatActivity {
 
                             if (caminhoImagem != null) {
                                 salvarImagemAnuncio();
+                            } else if (anuncio.getUrl_imagem() != null) {
+                                anuncio.salvar();
+                                finish();
                             } else {
                                 Toast.makeText(this, "Selecione uma imagem para o anuncio", Toast.LENGTH_SHORT).show();
                             }
@@ -139,6 +164,8 @@ public class FormAnuncioActivity extends AppCompatActivity {
     }
 
     private void salvarImagemAnuncio() {
+        progressBar.setVisibility(View.VISIBLE);
+
         StorageReference storageReference = FirebaseHelper.getStorageReference()
                 .child("imagens")
                 .child("anuncios")
@@ -151,8 +178,11 @@ public class FormAnuncioActivity extends AppCompatActivity {
 
             anuncio.salvar();
 
-            // finish();
-        })).addOnFailureListener(e -> Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show());
+            finish();
+        })).addOnFailureListener(e -> {
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void iniciaComponenets() {
@@ -166,6 +196,7 @@ public class FormAnuncioActivity extends AppCompatActivity {
         edit_garagem = findViewById(R.id.edit_garagem);
         cb_status = findViewById(R.id.cb_status);
         img_anuncio = findViewById(R.id.img_anuncio);
+        progressBar = findViewById(R.id.progressBar);
     }
 
     @Override
