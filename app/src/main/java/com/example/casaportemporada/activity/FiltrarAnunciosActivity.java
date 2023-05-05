@@ -12,5 +12,11 @@ public class FiltrarAnunciosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filtrar_anuncios);
+
+        configCliques();
+    }
+
+    private void configCliques() {
+        findViewById(R.id.ib_voltar).setOnClickListener(view -> finish());
     }
 }

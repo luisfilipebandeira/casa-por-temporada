@@ -125,6 +125,7 @@ public class FormAnuncioActivity extends AppCompatActivity {
                         if (!garagem.isEmpty()) {
 
                             if (anuncio == null) anuncio = new Anuncio();
+                            anuncio.setIdUsuario(FirebaseHelper.getIdFirebase());
                             anuncio.setTitulo(titulo);
                             anuncio.setDescricao(descricao);
                             anuncio.setQuarto(quarto);
