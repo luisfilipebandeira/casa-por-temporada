@@ -40,6 +40,11 @@ public class Anuncio implements Serializable {
                 .child("anuncios")
                 .child(FirebaseHelper.getIdFirebase())
                 .child(this.getId());
+        DatabaseReference anuncioPublicosRef = FirebaseHelper.getDatabaseReference()
+                .child("anuncios_publicos")
+                .child(this.getId());
+
+        anuncioPublicosRef.removeValue();
         reference.removeValue().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 StorageReference storageReference = FirebaseHelper.getStorageReference()

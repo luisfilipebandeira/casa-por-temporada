@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(new Intent(this, MainActivity.class));
 
                     } else {
+                        progressBar.setVisibility(View.GONE);
                         String error = task.getException().getMessage();
                         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
                     }

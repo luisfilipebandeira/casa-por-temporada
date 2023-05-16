@@ -30,20 +30,21 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/text_quarto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="0 quartos ou mais" />
 
             <SeekBar
+                android:id="@+id/sb_quarto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:max="10"
-                android:thumbTint="@color/azul_padrao"
-                android:progressTint="@color/azul_padrao"
                 android:progressBackgroundTint="@color/azul_padrao"
-                />
+                android:progressTint="@color/azul_padrao"
+                android:thumbTint="@color/azul_padrao" />
 
         </LinearLayout>
 
@@ -54,20 +55,21 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/text_banheiro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="0 banheiro ou mais" />
 
             <SeekBar
+                android:id="@+id/sb_banheiro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:max="10"
-                android:thumbTint="@color/azul_padrao"
-                android:progressTint="@color/azul_padrao"
                 android:progressBackgroundTint="@color/azul_padrao"
-                />
+                android:progressTint="@color/azul_padrao"
+                android:thumbTint="@color/azul_padrao" />
 
         </LinearLayout>
 
@@ -78,20 +80,21 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/text_garagem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="0 garagem ou mais" />
 
             <SeekBar
+                android:id="@+id/sb_garagem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:max="10"
-                android:thumbTint="@color/azul_padrao"
-                android:progressTint="@color/azul_padrao"
                 android:progressBackgroundTint="@color/azul_padrao"
-                />
+                android:progressTint="@color/azul_padrao"
+                android:thumbTint="@color/azul_padrao" />
 
         </LinearLayout>
 
@@ -108,6 +111,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/bg_btn"
                 android:textColor="@color/white"
+                android:onClick="limparFiltro"
                 android:text="Limpar" />
 
             <android.widget.Button
@@ -117,6 +121,7 @@
                 android:background="@drawable/bg_btn"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/white"
+                android:onClick="filtrar"
                 android:text="Filtrar" />
 
         </LinearLayout>
